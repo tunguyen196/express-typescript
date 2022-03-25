@@ -1,6 +1,7 @@
+import { User } from './../app/Models/User';
 import "reflect-metadata"
-import { Product } from './app/Models/Product';
-import { Category } from './app/Models/Category';
+import { Product } from '../app/Models/Product';
+import { Category } from '../app/Models/Category';
 import { DataSource } from "typeorm"
 
 export const AppDataSource = new DataSource({
@@ -12,7 +13,7 @@ export const AppDataSource = new DataSource({
     database: "trainning",
     synchronize: true,
     logging: true,
-    entities: [Category, Product],
+    entities: [Category, Product, User],
     subscribers: [],
     migrations: [],
 })

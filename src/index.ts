@@ -1,23 +1,27 @@
+import express from "express";
 import { Category } from './app/Models/Category';
-import { AppDataSource } from './data-source';
-import express from "express"
+import { AppDataSource } from './config/data-source';
 import { routes } from './routes';
-const bodyParser = require('body-parser');
 
 const app = express()
-const port = process.env.PORT || 3000
+//config .env
+import dotenv from 'dotenv'
+import path from "path";
+dotenv.config({path: path.join(__dirname, ".env")})
 
+//get form data
+const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.listen(port)
-
+//router
 routes(app);
 
+//run app
+const port = process.env.PORT || 3000
+app.listen(port)
 
-// to initialize initial connection with the database, register all entities
-// and "synchronize" database schema, call "initialize()" method of a newly created database
-// once in your application bootstrap
+//type orm
 AppDataSource.initialize()
     .then(async() => {
         const category = new Category();
